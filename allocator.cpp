@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <map>
+#include <iomanip>
 
 int factorial(const int n) {
     if (n < 0) {
@@ -18,9 +19,19 @@ int factorial(const int n) {
 }
 
 int main() {
-    std::map<int, int> container1;
-    for(int i = 0; i < 9; i++)
-        container1[i] = factorial(i);
+    std::map<int, int> map_with_standard_allocator;
+    for(int i = 0; i <= 9; i++) {
+        map_with_standard_allocator[i] = factorial(i);
+    }
+
+    std::map<int, int> map_with_custom_allocator;
+    for(int i = 0; i <= 9; i++) {
+        map_with_custom_allocator[i] = factorial(i);
+    }
+
+    for(const auto& [k, v]: map_with_custom_allocator) {
+        std::cout << k << "! = " << std::setw(6) << v << std::endl;
+    }
 
 
 
