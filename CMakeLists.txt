@@ -6,10 +6,12 @@ else()
     project(allocator VERSION 0.0.1)
 endif()
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17") # for travis
+set(CMAKE_CXX_STANDARD 14)
 
+add_library(factorial factorial.cpp)
 add_executable(allocator allocator.cpp)
+
+target_link_libraries(allocator factorial)
 
 install(TARGETS allocator RUNTIME DESTINATION bin)
 
