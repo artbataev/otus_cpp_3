@@ -21,10 +21,10 @@ script:
 #- cmake --build . --target test
 - cmake --build . --target package
 
-#deploy:
-#  provider: script
-#  skip_cleanup: true
-#  script:
-#  - curl -T allocator-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -u artbataev:$BINTRAY_API_KEY "https://api.bintray.com/content/vladimirbataev/otus_cpp_3/allocator-artbataev/$TRAVIS_BUILD_NUMBER/allocator-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;publish=1"
-#  on:
-#    branch: master
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+  - curl -T allocator-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -u artbataev:$BINTRAY_API_KEY "https://api.bintray.com/content/artbataev1/Otus_Assignments/Otus_Cpp_3/$TRAVIS_BUILD_NUMBER/allocator-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;publish=1"
+  on:
+    branch: master
