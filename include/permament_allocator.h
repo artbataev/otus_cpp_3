@@ -1,9 +1,8 @@
-#include <iostream>
-#include <map>
-#include <iomanip>
-#include "factorial.h"
+#pragma once
 
-template<typename T>
+#include <algorithm>
+
+template<typename T, size_t NElements>
 struct permanent_allocator {
     using value_type = T;
 
@@ -14,14 +13,14 @@ struct permanent_allocator {
 
     template<typename U>
     struct rebind {
-        using other = permanent_allocator<U>;
+        using other = permanent_allocator<U, NElements>;
     };
 
     permanent_allocator() = default;
     ~permanent_allocator() = default;
 
     template<typename U>
-    permanent_allocator(const permanent_allocator<U>&) {
+    permanent_allocator(const permanent_allocator<U, NElements>&) {
 
     }
 
@@ -45,22 +44,3 @@ struct permanent_allocator {
         p->~T();
     }
 };
-
-int main() {
-    std::map<int, int> map_with_standard_allocator;
-    for(int i = 0; i <= 9; i++) {
-        map_with_standard_allocator[i] = factorial(i);
-    }
-
-    std::map<int, int, std::less<>,
-            permanent_allocator<std::pair<const int, int>>> map_with_custom_allocator;
-    for(int i = 0; i <= 9; i++) {
-        map_with_custom_allocator[i] = factorial(i);
-    }
-
-    for(const auto& elem: map_with_custom_allocator) {
-        std::cout << elem.first << "! = " << std::setw(6) << elem.second << std::endl;
-    }
-
-    return 0;
-}
