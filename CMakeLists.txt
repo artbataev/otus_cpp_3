@@ -36,6 +36,6 @@ set(CPACK_PACKAGE_CONTACT artbataev@gmail.com)
 
 include(CPack)
 
-#enable_testing()
-#add_test(test test_allocator)
-#add_test(test test_customlist)
+enable_testing()
+add_test(test test_allocator)
+add_test(test test_customlist)
