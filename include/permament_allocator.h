@@ -18,7 +18,7 @@ struct permanent_allocator {
         using other = permanent_allocator<U, NElements>;
     };
 
-    permanent_allocator() = default;
+    permanent_allocator(): memory_idx(0) {};
     ~permanent_allocator() = default;
 
     template<typename U>
