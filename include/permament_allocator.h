@@ -1,6 +1,6 @@
 #pragma once
 
-#include <algorithm>
+#include <memory>
 #include <array>
 
 // https://en.cppreference.com/w/cpp/named_req/Allocator#Allocator_completeness_requirements - requirements
