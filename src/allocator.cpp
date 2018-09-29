@@ -17,7 +17,7 @@ int main() {
     }
 
     for(const auto& elem: map_with_custom_allocator) {
-        std::cout << elem.first << "! = " << std::setw(6) << elem.second << std::endl;
+        std::cout << elem.first << " " << elem.second << std::endl;
     }
 
     return 0;

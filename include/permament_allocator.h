@@ -1,7 +1,9 @@
 #pragma once
 
 #include <algorithm>
+#include <array>
 
+// https://en.cppreference.com/w/cpp/named_req/Allocator#Allocator_completeness_requirements - requirements
 template<typename T, size_t NElements>
 struct permanent_allocator {
     using value_type = T;
@@ -24,15 +26,19 @@ struct permanent_allocator {
 
     }
 
-    T* allocate(std::size_t n) {
-        auto p = std::malloc(n * sizeof(T));
-        if (!p)
+    pointer allocate(size_t n) {
+        if (n == 0) // nothing to allocate
+            return nullptr;
+        if (memory_idx + n > NElements)
             throw std::bad_alloc();
-        return reinterpret_cast<T *>(p);
+
+        pointer current_pointer = &memory[memory_idx];
+        memory_idx += n;
+        return current_pointer;
     }
 
-    void deallocate(T *p, std::size_t n) {
-        std::free(p);
+    void deallocate(pointer p, size_t n) {
+        memory_idx -= n;
     }
 
     template<typename U, typename ...Args>
@@ -40,7 +46,11 @@ struct permanent_allocator {
         new(p) U(std::forward<Args>(args)...);
     }
 
-    void destroy(T *p) {
+    void destroy(pointer p) {
         p->~T();
     }
+
+private:
+    std::array<value_type, NElements> memory;
+    size_t memory_idx = 0;
 };
