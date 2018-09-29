@@ -14,10 +14,13 @@ add_executable(allocator src/allocator.cpp)
 target_link_libraries(allocator factorial)
 
 find_package(GTest REQUIRED)
-add_executable(test_${PROJECT_NAME} test/test_allocator.cpp)
-target_link_libraries(test_${PROJECT_NAME} ${GTEST_LIBRARIES})
+add_executable(test_allocator test/test_allocator.cpp)
+add_executable(test_customlist test/test_customlist.cpp)
+target_link_libraries(test_allocator ${GTEST_LIBRARIES})
+target_link_libraries(test_customlist ${GTEST_LIBRARIES})
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    target_link_libraries(test_${PROJECT_NAME} pthread)
+    target_link_libraries(test_allocator pthread)
+    target_link_libraries(test_customlist pthread)
 endif()
 
 
@@ -33,5 +36,6 @@ set(CPACK_PACKAGE_CONTACT artbataev@gmail.com)
 
 include(CPack)
 
-enable_testing()
-add_test(test test_${PROJECT_NAME})
+#enable_testing()
+#add_test(test test_allocator)
+#add_test(test test_customlist)
