@@ -13,7 +13,8 @@ public:
     };
 
     using Alloc = typename _Alloc::template rebind<Element>::other;
-    CustomList(): head(nullptr), tail(nullptr), list_allocator(Alloc()) {};
+    CustomList() = default;
+    ~CustomList() = default;
 
     void add_element(const T& value) {
         auto element = list_allocator.allocate(1);
