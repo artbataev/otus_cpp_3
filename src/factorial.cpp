@@ -1,7 +1,6 @@
-#include <iostream>
-#include <stdexcept>
 #include <sstream>
-#include <map>
+#include <stdexcept>
+#include "factorial.h"
 
 int factorial(const int n) {
     if (n < 0) {
@@ -15,14 +14,4 @@ int factorial(const int n) {
         result *= i;
 
     return result;
-}
-
-int main() {
-    std::map<int, int> container1;
-    for(int i = 0; i < 9; i++)
-        container1[i] = factorial(i);
-
-
-
-    return 0;
 }
